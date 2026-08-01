@@ -6,7 +6,8 @@
 - **データ出所**: 世界銀行 World Development Indicators (WDI)
   - `NY.GNP.MKTP.CD` — GNI(当年価格・米ドル)
   - `NY.GNP.MKTP.CN` — GNI(当年価格・円)
-  - `NY.GNP.MKTP.KN` — GNI(2015年基準の実質・円、1994年以降のみ公表)
+  - `NY.GNP.MKTP.KN` — GNI(2015年基準の実質・円、1994–2024年のみ公表)
+  - `NY.GDP.MKTP.CN` / `NY.GDP.MKTP.KN` — GDPデフレーター算出用(実質GNP 1967–1993年・2025年の推計に使用)
 
 ## グラフ
 
@@ -49,3 +50,4 @@
 - GitHub Pages として公開
 - README.md を追加(リポジトリ構成・更新履歴)
 - README.md にドル建て・円建てグラフを埋め込み
+- 円建てデータ表の実質GNPの欠損(1967–1993年・2025年)をGDPデフレーターによる推計値で補完し、グラフに推計区間(破線)を追加

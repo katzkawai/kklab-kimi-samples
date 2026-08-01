@@ -46,7 +46,7 @@ html = f"""<!DOCTYPE html>
 <h2>円建て(名目・実質)</h2>
 <img src="japan_gnp_yen.png" alt="日本のGNP(円建て・名目 vs 実質)の推移">
 <div class="table-wrap">{table_html(yen)}</div>
-<p class="note">出所: 世界銀行 WDI (NY.GNP.MKTP.CN / NY.GNP.MKTP.KN)。実質は2015年基準価格 / <a href="japan_gnp_yen.csv">CSVをダウンロード</a></p>
+<p class="note">出所: 世界銀行 WDI (NY.GNP.MKTP.CN / NY.GNP.MKTP.KN)。実質は2015年基準価格。1967–1993年と2025年の実質はGDPデフレーター(NY.GDP.MKTP.CN/KN)による推計値(備考列に「推計」と記載) / <a href="japan_gnp_yen.csv">CSVをダウンロード</a></p>
 
 <p class="note">AI生成コンテンツを含みます。投資助言ではありません。</p>
 </body>
