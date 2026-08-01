@@ -8,8 +8,9 @@ plt.rcParams["font.family"] = "Noto Sans CJK JP"
 fx = pd.read_csv("/tmp/japan_fx.csv").sort_values("date")
 tot = pd.read_csv("/tmp/japan_tot.csv").sort_values("date")
 cpi = pd.read_csv("/tmp/japan_cpi.csv").sort_values("date")
+rw = pd.read_csv("/tmp/japan_realwage.csv").sort_values("date")
 
-fig, axes = plt.subplots(3, 1, figsize=(11, 10), sharex=True)
+fig, axes = plt.subplots(4, 1, figsize=(11, 13), sharex=True)
 
 axes[0].plot(fx["date"], fx["value"], marker="o", markersize=3, linewidth=1.8, color="#1f77b4")
 axes[0].set_ylabel("円/ドル")
@@ -27,13 +28,19 @@ axes[2].axhline(0, color="gray", linewidth=0.8, linestyle=":")
 axes[2].axhline(2, color="gray", linewidth=0.8, linestyle="--")
 axes[2].set_ylabel("%(前年比)")
 axes[2].set_title("消費者物価上昇率(前年比%)")
-axes[2].set_xlabel("年")
+
+axes[3].plot(rw["date"], rw["value"], marker="D", markersize=3, linewidth=1.8, color="#9467bd")
+axes[3].axhline(100, color="gray", linewidth=0.8, linestyle=":")
+axes[3].set_ylabel("指数(2020年=100)")
+axes[3].set_title("実質賃金指数(現金給与総額、事業所規模30人以上、2020年=100)")
+axes[3].set_xlabel("年")
 
 for ax in axes:
     ax.grid(True, alpha=0.3)
 
 fig.suptitle("円安の影響の裏付け系列:日本(1967–2025年)", fontsize=14)
-fig.text(0.99, 0.005, "出所: 世界銀行 WDI (PA.NUS.FCRF / TT.PRI.MRCH.XD.WD / FP.CPI.TOTL.ZG)",
+fig.text(0.99, 0.005,
+         "出所: 世界銀行 WDI (PA.NUS.FCRF / TT.PRI.MRCH.XD.WD / FP.CPI.TOTL.ZG)、厚生労働省「毎月勤労統計調査」長期時系列表(実質賃金指数)",
          ha="right", fontsize=8, color="gray")
 
 plt.tight_layout(rect=[0, 0.02, 1, 0.98])
@@ -45,6 +52,9 @@ out = out.merge(
     on="年", how="outer")
 out = out.merge(
     pd.DataFrame({"年": cpi["date"], "消費者物価上昇率(%)": cpi["value"].round(2)}),
+    on="年", how="outer")
+out = out.merge(
+    pd.DataFrame({"年": rw["date"], "実質賃金指数(2020=100)": rw["value"].round(1)}),
     on="年", how="outer").sort_values("年")
 out.to_csv("/home/katzkawai/kklab-kimi-samples/japan_macro.csv", index=False)
 print("saved")
